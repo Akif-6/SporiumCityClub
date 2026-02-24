@@ -38,4 +38,4 @@ Bu proje **Mehmet Akif Okumuş** tarafından tasarlanmış ve kodlanmıştır.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profilimi_Görüntüle-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mehmet-akif-okumu%C5%9F-68b315399)
 
-*Designed & Developed with ⚡ by Akif Okumuş*
+*Designed & Developed with ⚡ by Mehmet Akif Okumuş*
