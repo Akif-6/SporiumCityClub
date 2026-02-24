@@ -1,0 +1,351 @@
+/* --- TEMEL STİLLER (Senin Tasarımın) --- */
+:root { --primary: #00e640; --primary-hover: #00b332; --info: #00d2ff; --bg-dark: #121212; --bg-card: #1e1e1e; --text-main: #ffffff; --text-muted: #a0a0a0; --success: #00e640; --danger: #ff3d00; --border: #2d2d2d; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; cursor: pointer; } ul { list-style: none; } button { cursor: pointer; border: none; outline: none; }
+
+/* SIDEBAR & MAIN CONTENT */
+.sidebar { width: 280px; background: #0a0a0a; border-right: 1px solid var(--border); padding: 30px; display: flex; flex-direction: column; position: fixed; top: 0; height: 100%; z-index: 1000; transition: transform 0.3s ease; }
+.main-content { margin-left: 280px; flex: 1; padding: 40px; width: calc(100% - 280px); transition: margin-left 0.3s ease, width 0.3s ease; }
+
+.admin-brand { font-size: 1.8rem; font-weight: 800; margin-bottom: 60px; color: #fff; letter-spacing: -0.5px; text-align: center; } .admin-brand span { color: var(--primary); }
+.menu-items { display: flex; flex-direction: column; gap: 15px; height: 100%; } 
+.menu-items a { display: flex; align-items: center; padding: 16px 20px; color: var(--text-muted); border-radius: 12px; transition: 0.3s; font-weight: 500; font-size: 1rem; }
+.menu-items a:hover, .menu-items a.active { background: rgba(0, 230, 64, 0.1); color: var(--primary); } 
+.menu-items a i { margin-right: 15px; font-size: 1.2rem; width: 24px; text-align: center; }
+.bottom-links { margin-top: auto; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #333; padding-top: 20px; }
+.site-btn:hover { color: #fff !important; background: rgba(255,255,255,0.1); }
+.logout-btn { color: var(--danger) !important; font-weight: 600; } .logout-btn:hover { background: rgba(255, 61, 0, 0.1) !important; }
+
+/* KARTLAR */
+.dashboard-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 35px; }
+.card { background: var(--bg-card); padding: 30px; border-radius: 12px; border: 1px solid var(--border); position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 150px; }
+.card h4 { color: var(--text-muted); font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; opacity: 0.8; } .card p { font-size: 2.2rem; font-weight: 800; color: #fff; margin: 0; letter-spacing: -1px; }
+.card.income { border-bottom: 5px solid var(--success); } .card.expense { border-bottom: 5px solid var(--danger); } .card.net { border-bottom: 5px solid #fff; }
+
+/* FİNANS GRİD */
+.finance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.finance-box { background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+.finance-header { padding: 25px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.finance-header h3 { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; }
+.finance-content { padding: 0; overflow-y: auto; max-height: 400px; }
+.finance-row { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; border-bottom: 1px solid var(--border); transition: 0.2s; } .finance-row:hover { background: rgba(255,255,255,0.02); }
+.row-name { font-weight: 600; font-size: 0.95rem; color: #fff; } .row-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+.text-green { color: var(--success); } .text-red { color: var(--danger); }
+.btn-delete-x { color: #666; margin-left: 20px; font-size: 0.9rem; padding: 5px; cursor: pointer; background: none; border: none; transition: 0.3s; } .btn-delete-x:hover { color: var(--danger); transform: scale(1.2); }
+
+/* TABLOLAR */
+.table-container { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); overflow-x: auto; } /* Taşan tablo için scroll */
+table { width: 100%; border-collapse: collapse; min-width: 600px; } /* Mobilde tablo çok sıkışmasın */
+th { text-align: left; padding: 15px 0; color: var(--text-muted); border-bottom: 1px solid var(--border); } td { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.btn-add { background: var(--primary); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; transition: 0.3s; white-space: nowrap; } .btn-add:hover { background: var(--primary-hover); }
+.action-btn { background: transparent; color: var(--text-muted); font-size: 1.2rem; margin-right: 15px; transition: 0.3s; } .action-btn:hover { color: var(--text-main); transform: scale(1.1); }
+.action-btn.program { color: var(--info); } .action-btn.program:hover { color: var(--info-hover); } .action-btn.delete:hover { color: #ff4757; }
+
+/* MODALLAR */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+.modal-content { background: var(--bg-card); padding: 40px; border-radius: 20px; width: 500px; border: 1px solid var(--border); animation: zoomIn 0.3s; max-height: 90vh; overflow-y: auto; }
+.form-group { margin-bottom: 15px; } .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; background: var(--bg-dark); border: 1px solid var(--border); color: #fff; border-radius: 8px; outline: none; }
+.btn-submit { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: 700; border-radius: 10px; margin-top: 10px; }
+
+/* FİYAT GRİD */
+.price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.price-pair { display: flex; gap: 10px; }
+.price-pair input:nth-child(1) { width: 40%; border-color: #555; color: #aaa; text-decoration: line-through; } 
+.price-pair input:nth-child(2) { width: 60%; border-color: var(--primary); font-weight: bold; } 
+.price-category { color: var(--primary); font-size: 1.1rem; font-weight: 700; grid-column: span 2; margin-top: 20px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+.label-helper { font-size: 0.8rem; color: #666; margin-left: 10px; font-weight: normal; }
+
+/* PROGRAM MODAL (EXCEL + AKORDEON) */
+#programModal .modal-content { width: 95%; max-width: 1400px; height: 90vh; padding: 0; display: flex; flex-direction: column; background: #111; border: 1px solid #333; }
+.pro-header { padding: 20px; background: #000; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+.pro-tabs { display: flex; background: #1a1a1a; padding: 0 20px; border-bottom: 1px solid #333; overflow-x: auto; }
+.pro-tab-btn { padding: 15px 25px; background: none; border: none; color: #888; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.3s; font-family: 'Inter'; font-size: 0.9rem; white-space: nowrap; }
+.pro-tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(0, 230, 64, 0.05); }
+.pro-body { flex: 1; overflow-y: auto; padding: 25px; display:none; }
+
+.sheet-table { width: 100%; border-collapse: collapse; border: 1px solid #333; margin-bottom: 15px; }
+.sheet-table th { background: #222; color: var(--primary); padding: 8px; font-size: 0.8rem; text-transform: uppercase; border: 1px solid #333; text-align: left; }
+.sheet-table td { border: 1px solid #333; background: #0a0a0a; padding: 0; }
+.sheet-input, .sheet-select { width: 100%; height: 40px; background: transparent; border: none; color: #fff; padding: 0 10px; outline: none; font-family: 'Inter'; font-size: 0.9rem; }
+.sheet-select { background: #0a0a0a; cursor: pointer; }
+.sheet-input:focus, .sheet-select:focus { background: #1a1a1a; box-shadow: inset 0 0 0 1px var(--primary); }
+.row-del-btn { color: #555; text-align: center; cursor: pointer; display: block; padding: 10px; transition: 0.3s; }
+.row-del-btn:hover { color: #ff3d00; background: rgba(255, 61, 0, 0.1); }
+
+.macro-cell { text-align: center; font-size: 0.85rem; font-weight: 600; color: #888; background: #141414; padding: 0 5px; border: 1px solid #333; width: 60px;}
+.macro-input { width: 100%; height: 100%; text-align: center; background: transparent; border: none; color: #888; font-weight: 600; }
+.c-cal input { color: var(--primary); } .c-pro input { color: #00d2ff; } .c-carb input { color: #ff9f43; } .c-fat input { color: #ff3d00; }
+
+.day-accordion { margin-bottom: 15px; border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #1a1a1a; }
+.day-header { padding: 15px 20px; background: #222; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: #fff; transition: 0.3s; }
+.day-header:hover { background: #2a2a2a; color: var(--primary); }
+.day-header.active { background: rgba(0, 230, 64, 0.1); color: var(--primary); border-bottom: 1px solid var(--primary); }
+.day-body { display: none; padding: 20px; background: #111; border-top: 1px solid #333; }
+.day-body.show { display: block; animation: slideDown 0.3s ease; }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+.meal-box { border: 1px solid #333; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: #161616; position: relative; }
+.meal-title { font-size: 0.9rem; color: var(--primary); margin-bottom: 10px; font-weight: bold; display: flex; justify-content: space-between; }
+.meal-remove { color: var(--danger); cursor: pointer; font-size: 0.8rem; }
+
+.data-management-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; margin-top:30px; border-top: 1px solid #333; padding-top: 30px; }
+.data-box { background: #161616; border-radius: 12px; border: 1px solid var(--border); padding: 25px; display: flex; flex-direction: column; height: 550px; }
+.data-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+.data-header h4 { color: var(--primary); font-size: 1.1rem; margin: 0; }
+.data-list { flex: 1; overflow-y: auto; padding-right: 5px; }
+.data-item { display: flex; justify-content: space-between; align-items: center; background: #0a0a0a; padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #222; transition: 0.2s; }
+.data-item:hover { border-color: #444; }
+.add-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 40px; gap: 5px; margin-bottom: 15px; padding: 10px; background: #222; border-radius: 8px; }
+.add-row input, .add-row select { background: #0a0a0a; border: 1px solid #333; color: #fff; padding: 8px; border-radius: 4px; font-size: 0.85rem; width: 100%; outline: none; }
+.add-row input:focus, .add-row select:focus { border-color: var(--primary); }
+
+.section { display: none; } .section.active-section { display: block; }
+
+/* --- 🔥 MOBİL UYUMLULUK (RESPONSIVE) 🔥 --- */
+@media (max-width: 1024px) {
+    .dashboard-cards { grid-template-columns: repeat(2, 1fr); }
+    .data-management-grid { grid-template-columns: 1fr; } /* Alt alta geçsin */
+}
+
+@media (max-width: 768px) {
+    /* SIDEBAR (MOBİLDE GİZLE) */
+    .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+    .sidebar.active { transform: translateX(0); } /* JS ile açılacak */
+    
+    .main-content { margin-left: 0; width: 100%; padding: 20px; }
+    
+    .dashboard-cards { grid-template-columns: 1fr; } /* Tek sütun kartlar */
+    .finance-grid { grid-template-columns: 1fr; }
+    .price-grid { grid-template-columns: 1fr; }
+    
+    /* TABLOYU KART YAPMA */
+    #uyeTablo td, #uyeTablo th { display: block; }
+    #uyeTablo thead { display: none; } /* Başlıkları gizle */
+    #uyeTablo tr { border: 1px solid #333; margin-bottom: 15px; border-radius: 8px; background: #1a1a1a; display: block; padding: 15px; }
+    
+    #uyeTablo td { 
+        padding: 5px 0; border: none; position: relative; padding-left: 0; text-align: left;
+        display: flex; flex-direction: column; gap: 5px;
+    }
+    
+    #uyeTablo td:before { 
+        content: attr(data-label); font-weight: bold; color: var(--primary); font-size: 0.85rem;
+    }
+    
+    .action-cell { display: flex; justify-content: flex-start; margin-top: 10px; border-top: 1px solid #333; padding-top: 10px !important; }
+    .action-buttons-wrapper { display: flex; gap: 15px; }
+    
+    /* MODALLAR TAM EKRAN */
+    .modal-content { width: 100%; height: 100%; border-radius: 0; max-height: 100vh; padding: 20px; }
+    
+    /* Menü Butonu (Header'da olmalı) */
+    .menu-toggle { display: block !important; position: fixed; top: 15px; right: 15px; z-index: 1001; font-size: 1.5rem; background: #000; padding: 5px 10px; border-radius: 5px; color: var(--primary); border: 1px solid #333; }
+}
+
+/* --- INBOX (GELEN KUTUSU) TASARIMI --- */
+.inbox-item {
+    display: flex; align-items: flex-start; gap: 15px; background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 3px solid var(--primary); transition: 0.2s;
+}
+.inbox-item:hover { background: #222; transform: translateX(5px); }
+.inbox-avatar { width: 40px; height: 40px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; flex-shrink: 0; }
+.inbox-content { flex: 1; }
+.inbox-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.inbox-name { font-weight: 700; color: #fff; font-size: 0.95rem; }
+.inbox-date { font-size: 0.75rem; color: #666; }
+.inbox-text { color: #aaa; font-size: 0.9rem; line-height: 1.4; font-style: italic; }
+.inbox-reply-btn { background: transparent; border: 1px solid #444; color: #888; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+.inbox-reply-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 230, 64, 0.1); }
+.inbox-action-btn { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #333; background: transparent; color: #888; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+.inbox-action-btn.reply:hover { color: var(--primary); border-color: var(--primary); }
+.inbox-action-btn.delete:hover { color: #ff3d00; border-color: #ff3d00; }
+/* --- EKLENEN FOTOĞRAF STİLİ (Admin Paneli İçin) --- */
+.table-img {
+    width: 40px; 
+    height: 40px; 
+    object-fit: cover; 
+    border-radius: 6px; 
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.table-img:hover {
+    transform: scale(2.5); /* Admin daha büyük görsün */
+    border-color: var(--primary);
+    z-index: 10;
+}
+/* --- 1. ÜYE LİSTESİ BUTONLARI DÜZELTME --- */
+.action-cell {
+    white-space: nowrap; /* Asla alt satıra geçme */
+    width: 1%; /* İçeriği kadar yer kapla */
+}
+
+.action-buttons-wrapper {
+    display: flex;
+    gap: 8px; /* Butonlar arası boşluk */
+    justify-content: flex-end; /* Sağa yasla */
+    flex-wrap: nowrap; /* Asla kaydırma yapma */
+}
+
+.action-btn {
+    font-size: 1.1rem; /* Buton ikonlarını biraz küçült sığsın */
+    padding: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.action-btn:hover {
+    transform: scale(1.2);
+}
+
+/* --- 2. FOTOĞRAF BÜYÜTME MODALI (POP-UP) --- */
+.image-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Arka planı iyice karart */
+    z-index: 20000; /* En üstte dur */
+    display: none; /* JS ile açılacak */
+    align-items: center;
+    justify-content: center;
+}
+
+.image-modal-content {
+    max-width: 90%;
+    max-height: 90vh;
+    border: 2px solid #00e640;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 230, 64, 0.5);
+}
+
+.image-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 3rem;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 20001;
+}
+
+.image-modal-close:hover {
+    color: #00e640;
+}
+
+/* --- 📢 JİLET GİBİ DUYURU BANNERI (DÜZELTİLMİŞ) --- */
+
+.announcement-wrapper {
+    margin-top: 30px; /* Kartlarla arasına mesafe koyar */
+    width: 100%;
+}
+
+.ann-content {
+    background: #1a1a1a; /* Kartlarla uyumlu koyu gri */
+    border: 1px solid #333;
+    border-left: 5px solid #ff9f43; /* Sol şerit */
+    border-radius: 12px;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* SOL TARAF */
+.ann-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-width: 250px; /* Başlık alanı daralmasın */
+}
+
+.ann-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 159, 67, 0.15);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff9f43;
+    font-size: 1.5rem;
+}
+
+.ann-info h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+.ann-info p {
+    color: #888;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+/* SAĞ TARAF (Input Grubu) */
+.ann-right {
+    flex: 1; /* Kalan tüm alanı kapla */
+    background: #0a0a0a; /* Daha koyu iç zemin */
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    height: 60px; /* Sabit yükseklik, kaymayı önler */
+}
+
+.ann-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 0 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    height: 100%;
+}
+
+.ann-btn {
+    background: #ff9f43;
+    color: #000;
+    border: none;
+    height: 48px; /* Input yüksekliğine uygun */
+    padding: 0 25px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.ann-btn:hover {
+    background: #e67e22;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+}
+
+/* Mobilde Alt Alta Geçsin */
+@media (max-width: 900px) {
+    .ann-content {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+    }
+    .ann-left {
+        margin-bottom: 15px;
+    }
+}

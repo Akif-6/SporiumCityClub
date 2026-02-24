@@ -1,0 +1,6 @@
+@SporiumAPI_HostAddress = http://localhost:5273
+
+GET {{SporiumAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - Sporium City Club</title>
+    <link rel="icon" type="image/png" href="resim/s.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+    /* --- ZEHİR YEŞİLİ TEMA --- */
+    :root { 
+        --primary: #00e640;       /* Neon Yeşil */
+        --primary-dark: #00b332;  /* Koyu Yeşil */
+        --dark: #111; 
+        --darker: #0a0a0a; 
+        --light: #fff; 
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background-color: var(--dark); color: var(--light); overflow-x: hidden; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+    a { text-decoration: none; color: inherit; } ul { list-style: none; } img { max-width: 100%; }
+
+    /* HEADER & NAV */
+    header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.95); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; border-bottom: 1px solid #222; }
+    .logo-container img { height: 50px; width: auto; object-fit: contain; display: block; }
+    
+    nav ul { display: flex; gap: 30px; align-items: center; }
+    nav ul li a { font-size: 15px; font-weight: 500; text-transform: uppercase; transition: color 0.3s; }
+    nav ul li a:hover { color: var(--primary); text-shadow: 0 0 10px rgba(0,230,64,0.5); }
+    .active-link { color: var(--primary); font-weight: 700; text-shadow: 0 0 10px rgba(0,230,64,0.3); }
+    
+    /* BUTON STİLİ */
+    /* --- BUTON BOYUT AYARLARI (Masaüstü vs Mobil) --- */
+.btn-join { 
+    background: linear-gradient(45deg, #00e640, #00992b); 
+    color: #000;
+    padding: 10px 25px; 
+    border-radius: 5px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    font-size: 14px; 
+    transition: all 0.3s; 
+    box-shadow: 0 0 10px rgba(0, 230, 64, 0.3);
+    cursor: pointer;
+    white-space: nowrap; /* Mobilde taşmasın */
+}   
+
+/* Mobilde ise küçülsün */
+@media (max-width: 768px) {
+    .btn-join {
+        padding: 8px 15px !important;
+        font-size: 13px !important;
+        min-width: auto; /* Mobilde genişlik serbest olsun */
+    }
+}
+    .btn-join:hover { 
+        background: var(--primary-dark); 
+        transform: translateY(-2px); 
+        box-shadow: 0 0 20px rgba(0, 230, 64, 0.6);
+    }
+    .menu-toggle { display: none; font-size: 24px; cursor: pointer; color: var(--primary); }
+
+    /* SAYFA BAŞLIĞI */
+    .page-header { 
+        height: 40vh; 
+        background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=1469&auto=format&fit=crop'); 
+        background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: 80px; 
+        box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+    }
+    .page-header h1 { font-size: 3rem; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,0,0,0.8); }
+    .page-header span { width: 80px; height: 5px; background: var(--primary); display: block; box-shadow: 0 0 10px var(--primary); }
+
+    /* İLETİŞİM KUTULARI */
+    .contact-section { padding: 80px 5%; background: var(--darker); }
+    .contact-container { display: flex; justify-content: center; align-items: center; }
+    .contact-info { max-width: 800px; width: 100%; text-align: center; }
+    .contact-info h2 { font-size: 2.5rem; margin-bottom: 20px; color: #fff; }
+    .contact-info p { color: #ccc; margin-bottom: 50px; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: left; }
+    .info-card { 
+        background: var(--dark); padding: 30px; border-radius: 10px; border: 1px solid #222; transition: 0.3s; 
+        display: flex; flex-direction: column; align-items: center; text-align: center; 
+    }
+    .info-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 230, 64, 0.15); }
+    
+    .info-card i { 
+        font-size: 30px; color: var(--primary); width: 70px; height: 70px; background: rgba(0, 230, 64, 0.1); 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; 
+        text-shadow: 0 0 10px rgba(0,230,64,0.4);
+    }
+    .info-card h4 { font-size: 1.2rem; color: #fff; margin-bottom: 10px; font-weight: 600; }
+    .info-card span, .info-card a { color: #999; font-size: 0.95rem; }
+
+    .map-section { height: 400px; width: 100%; }
+    .map-section iframe { width: 100%; height: 100%; border: 0; filter: grayscale(100%) invert(92%) contrast(83%); }
+    
+    footer { background: #050505; padding: 50px 5% 20px; border-top: 1px solid #222; margin-top: auto; }
+    .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #222; color: #666; font-size: 0.8rem; }
+
+    /* --- MOBİL UYUMLULUK (MEDIA QUERIES) --- */
+    @media (max-width: 768px) {
+        /* 1. Header & Nav */
+        header { padding: 15px 20px; }
+        .menu-toggle { display: block !important; position: relative; z-index: 2002; }
+
+        nav {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+            background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(10px);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: right 0.4s ease; z-index: 2000;
+        }
+        nav.active { right: 0; }
+        nav ul { flex-direction: column; gap: 30px; text-align: center; }
+        nav ul li a { font-size: 1.5rem; color: #fff; }
+        
+        .btn-join { display: none; } /* Mobilde header butonu gizle */
+        
+        .page-header h1 { font-size: 2.5rem; }
+        .contact-info p { font-size: 1rem; padding: 0 10px; }
+        
+        /* Kartları Tek Sütun Yap */
+        .info-grid { grid-template-columns: 1fr; }
+    }
+    
+    section { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
+    section.gorundu { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="sidebar-widget" style="text-align: center; border-left: none; padding: 10px 5px; margin-bottom: 12px; overflow: hidden;">
+            <div style="font-size: 20px; font-weight: 800; color: #fff; letter-spacing: 0.8px; line-height: 1;">
+                SPORIUM<span style="color: #00e640; text-shadow: 0 0 10px rgba(0, 230, 64, 0.2);">CITY</span>
+            </div>
+            <p style="font-size: 13px; color: #aaa; margin-top: 6px; font-style: italic; line-height: 1.3; font-weight: 500; display: block; width: 100%;">
+                Kalabalıktan Uzak, <br style="display:none;"> Hedef Odaklı Spor Deneyimi
+            </p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="programlar.html">Programlar</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="iletisim.html" class="active-link">İletişim</a></li>
+            </ul>
+        </nav>
+        
+        <a href="giris.html" class="btn-join" id="nav-login-btn">GİRİŞ YAP</a>
+        
+        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+    </header>
+
+    <section class="page-header"><h1>Bize Ulaşın</h1><span></span></section>
+
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>İletişim Bilgileri</h2>
+                <p>Üyelik detayları, fiyat bilgisi veya merak ettikleriniz için bize aşağıdaki kanallardan ulaşabilirsiniz.</p>
+                <div class="info-grid">
+                    <div class="info-card"><i class="fas fa-map-marker-alt"></i><h4>Adres</h4><span>Tatlıkuyu, 1301. Sk. NO:21/B<br>41400 Gebze/Kocaeli</span></div>
+                    <div class="info-card"><i class="fas fa-phone-alt"></i><h4>Telefon</h4><span> 0545 764 93 94</span></div>
+                    <div class="info-card"><i class="fas fa-envelope"></i><h4>Email</h4><span>semihgok5025@gmail.com</span></div>
+                    <div class="info-card"><i class="fab fa-instagram"></i><h4>Instagram</h4><a href="https://www.instagram.com/sporiumcityclub_/" target="_blank" style="color:var(--primary); text-decoration:underline;">@sporiumcityclub_</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3015.654877793479!2d29.42861631541016!3d40.79375097932296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cb207f61c33d7b%3A0x8e5f7783818e3828!2sTatlıkuyu%2C%201301.%20Sk.%20No%3A21%2C%2041400%20Gebze%2FKocaeli!5e0!3m2!1str!2str!4v1675865231234!5m2!1str!2str" 
+            width="100%" 
+            height="100%" 
+            style="border:0; filter: grayscale(100%) invert(92%) contrast(83%);" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </section>
+
+    <footer><div class="footer-bottom" style="text-align: center; padding-top: 20px; border-top: 1px solid #222; color: #666; font-size: 0.85rem;">
+        <p>&copy; 2026 Sporium City Club. Tüm Hakları Saklıdır.</p>
+        <p style="margin-top: 8px; font-size: 0.8rem; letter-spacing: 0.5px;">
+            Designed & Developed with <i class="fas fa-bolt" style="color: #ff9f43;"></i> by 
+            <a href="https://www.linkedin.com/in/mehmet-akif-okumu%C5%9F-68b315399?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" style="color: #00e640; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-shadow: 0 0 5px rgba(0, 230, 64, 0.4);">
+               Mehmet Akif Okumuş
+            </a>
+        </p>
+    </div></footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // --- GİRİŞ KONTROLÜ (MOBİL İSİM AYARLI) ---
+            const localData = localStorage.getItem("kullanici");
+            const btn = document.getElementById("nav-login-btn");
+
+            if (localData && btn) {
+                const kullanici = JSON.parse(localData);
+                const isMobile = window.innerWidth < 768;
+                const gorunenIsim = isMobile ? kullanici.adSoyad.split(' ')[0] : kullanici.adSoyad;
+
+                // ROLÜ AL, KÜÇÜK HARF YAP VE BOŞLUKLARI SİL (HAYAT KURTARAN SATIR)
+                const userRole = (kullanici.rol || kullanici.Rol || kullanici.role || "").toString().toLowerCase().trim();
+
+                const icon = userRole === 'admin' ? '<i class="fas fa-crown"></i>' : '<i class="fas fa-user"></i>';
+                
+                btn.innerHTML = `${icon} ${gorunenIsim}`;
+                btn.style.background = "#1e1e1e";
+                btn.style.border = "1px solid #00e640";
+                btn.style.color = "#00e640";
+                btn.style.display = "flex";
+                btn.style.alignItems = "center";
+                btn.style.gap = "8px";
+                btn.style.padding = "8px 15px";
+                btn.removeAttribute("href"); 
+                btn.style.cursor = "pointer";
+
+                btn.onclick = () => {
+                    if (userRole === "admin") {
+                        window.location.href = "admin_panel.html";
+                    } else {
+                        window.location.href = "profil.html";
+                    }
+                };
+            }
+
+            // --- MOBİL MENÜ MANTIĞI ---
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            const body = document.querySelector('body');
+            const navLinks = document.querySelectorAll('nav ul li a');
+
+            if (menuToggle) {
+                menuToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    nav.classList.toggle('active');
+                    
+                    const icon = menuToggle.querySelector('i');
+                    if (nav.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                        body.style.overflow = 'hidden';
+                    } else {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
+                        body.style.overflow = 'auto';
+                    }
+                });
+            }
+
+            // Menü dışına tıklayınca kapat
+            document.addEventListener('click', (e) => {
+                if (nav && nav.classList.contains('active') && !nav.contains(e.target) && !menuToggle.contains(e.target)) {
+                    nav.classList.remove('active');
+                    body.style.overflow = 'auto';
+                    menuToggle.querySelector('i').classList.remove('fa-times');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                }
+            });
+
+            // --- OBSERVER (KAYDIRMA EFEKTİ) ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('gorundu');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            const hiddenElements = document.querySelectorAll('section, .info-card');
+            hiddenElements.forEach((el) => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

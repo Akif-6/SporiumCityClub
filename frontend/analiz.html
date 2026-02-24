@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Vücut Analizi - Sporium City Club</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- PRO NEON TEMA --- */
+        :root { 
+            --primary: #00e640; 
+            --primary-dark: #00b332; 
+            --dark: #050505; 
+            --card-bg: rgba(255, 255, 255, 0.03); 
+            --border: rgba(255, 255, 255, 0.1);
+            --text-muted: #888;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--dark); 
+            color: #fff; 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow-x: hidden; /* Yatay taşmayı engelle */
+            background-image: radial-gradient(circle at top right, rgba(0, 230, 64, 0.15), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(0, 230, 64, 0.1), transparent 40%);
+        }
+
+        /* Ana Kapsayıcı (Glassmorphism) */
+        .container { 
+            background: rgba(20, 20, 20, 0.6); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px; 
+            border-radius: 24px; 
+            border: 1px solid var(--border); 
+            width: 90%; 
+            max-width: 650px; 
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+            position: relative;
+            animation: slideUp 0.6s ease-out;
+            max-height: 90vh; /* Ekranın %90'ını geçmesin */
+            overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu çıksın */
+        }
+
+        /* Scrollbar Gizleme (Opsiyonel: Daha şık görünüm için) */
+        .container::-webkit-scrollbar { width: 6px; }
+        .container::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        .container::-webkit-scrollbar-track { background: transparent; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { font-size: 1.8rem; margin-bottom: 10px; font-weight: 700; letter-spacing: -0.5px; }
+        
+        .step-indicator { 
+            color: var(--primary); 
+            font-weight: 700; 
+            margin-bottom: 20px; 
+            display: inline-block; 
+            font-size: 0.85rem; 
+            letter-spacing: 1px;
+            background: rgba(0, 230, 64, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 230, 64, 0.2);
+        }
+        
+        .sub-text { color: var(--text-muted); margin-bottom: 30px; font-size: 0.95rem; line-height: 1.6; }
+
+        /* Form Elemanları */
+        .step { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .step.active { display: block; }
+        
+        .option-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        
+        .option-btn {
+            display: flex; align-items: center; padding: 15px 20px;
+            background: var(--card-bg); 
+            border: 1px solid var(--border); 
+            color: #ccc;
+            border-radius: 12px; cursor: pointer; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            font-size: 0.95rem; text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-btn:hover { 
+            background: rgba(255, 255, 255, 0.08); 
+            border-color: var(--primary); 
+            color: #fff; 
+            transform: translateX(5px); 
+            box-shadow: 0 5px 15px rgba(0, 230, 64, 0.1);
+        }
+
+        .option-btn i { 
+            color: var(--primary); margin-right: 15px; width: 25px; font-size: 1.2rem; 
+            text-shadow: 0 0 10px rgba(0, 230, 64, 0.4);
+        }
+        
+        .option-btn div { display: flex; flex-direction: column; }
+        .option-btn strong { font-size: 1rem; margin-bottom: 2px; }
+        .option-btn span { font-size: 0.8rem; color: #777; transition: 0.3s; }
+        .option-btn:hover span { color: #aaa; }
+
+        .input-row { display: flex; gap: 15px; margin-bottom: 15px; }
+        
+        input { 
+            width: 100%; padding: 15px; 
+            background: var(--card-bg); 
+            border: 1px solid var(--border); 
+            color: #fff; border-radius: 12px; 
+            font-size: 1rem; outline: none; transition: 0.3s; 
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        input:focus { 
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 3px rgba(0, 230, 64, 0.2); 
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Şık Buton */
+        .btn-next {
+            background: var(--primary); 
+            color: #000; padding: 15px 30px; border: none;
+            border-radius: 50px; font-weight: 700; cursor: pointer; margin-top: 25px; width: 100%;
+            font-size: 1rem; letter-spacing: 0.5px;
+            box-shadow: 0 0 20px rgba(0, 230, 64, 0.4); 
+            transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        
+        .btn-next:hover { 
+            background: var(--primary-dark); 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 30px rgba(0, 230, 64, 0.6); 
+        }
+
+        /* Loading */
+        #loading-screen { display: none; text-align: center; padding: 60px 0; }
+        .loader-ring {
+            display: inline-block; position: relative; width: 80px; height: 80px; margin-bottom: 30px;
+        }
+        .loader-ring div {
+            box-sizing: border-box; display: block; position: absolute; width: 64px; height: 64px; margin: 8px;
+            border: 6px solid var(--primary); border-radius: 50%; animation: ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: var(--primary) transparent transparent transparent;
+            filter: drop-shadow(0 0 10px var(--primary));
+        }
+        .loader-ring div:nth-child(1) { animation-delay: -0.45s; }
+        .loader-ring div:nth-child(2) { animation-delay: -0.3s; }
+        .loader-ring div:nth-child(3) { animation-delay: -0.15s; }
+        
+        .log-text { 
+            font-family: 'Courier New', monospace; 
+            color: var(--primary); 
+            font-size: 0.95rem; margin-top: 15px; 
+            opacity: 0.8;
+        }
+
+        /* Sonuç Ekranı */
+        #result-screen { display: none; }
+        .result-icon { 
+            font-size: 50px; color: var(--primary); margin-bottom: 15px; 
+            filter: drop-shadow(0 0 20px rgba(0, 230, 64, 0.6));
+            animation: popIn 0.5s ease;
+        }
+        
+        .result-box { 
+            background: rgba(0, 230, 64, 0.05); 
+            border: 1px solid rgba(0, 230, 64, 0.3); 
+            padding: 25px; border-radius: 20px; margin-top: 20px; text-align: left; 
+        }
+        
+        .analysis-item { margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+        .analysis-item label { display: block; color: #aaa; font-size: 0.85rem; margin-bottom: 3px; }
+        .analysis-item span { color: #fff; font-weight: 600; font-size: 1rem; }
+        .analysis-item span.highlight { color: var(--primary); }
+        .analysis-item span.warning { color: #ff9f43; } /* Turuncu uyarı */
+
+        .ai-advice {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 3px solid var(--primary);
+        }
+        .ai-advice h4 { color: var(--primary); font-size: 0.9rem; margin-bottom: 5px; }
+        .ai-advice p { font-size: 0.85rem; color: #ccc; line-height: 1.5; margin: 0; }
+
+        @keyframes ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { 0% { transform: scale(0); } 80% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="step active" id="step1">
+            <span class="step-indicator">ADIM 1 / 7</span>
+            <h2>Vücut Analizi</h2>
+            <p class="sub-text">Yapay zeka antrenörünün senin metabolizmanı tanıması için temel verilerini gir.</p>
+            
+            <div class="input-row">
+                <input type="number" id="age" placeholder="Yaşınız">
+                <input type="number" id="gender" placeholder="Cinsiyet" style="display:none"> 
+            </div>
+            <div class="input-row">
+                <input type="number" id="height" placeholder="Boy (cm)">
+                <input type="number" id="weight" placeholder="Kilo (kg)">
+            </div>
+            
+            <button class="btn-next" onclick="nextStep(2)">DEVAM ET <i class="fas fa-arrow-right"></i></button>
+        </div>
+
+        <div class="step" id="step2">
+            <span class="step-indicator">ADIM 2 / 7</span>
+            <h2>Vücut Tipin?</h2>
+            <p class="sub-text">Genetik yapını en iyi hangisi tanımlıyor?</p>
+            
+            <div class="option-grid">
+                <button class="option-btn" onclick="setData('bodyType', 'Ectomorph'); nextStep(3)">
+                    <i class="fas fa-ruler-vertical"></i>
+                    <div><strong>İnce Yapılı (Ektomorf)</strong><span>Zor kilo alırım, yağ oranım düşük.</span></div>
+                </button>
+                <button class="option-btn" onclick="setData('bodyType', 'Mesomorph'); nextStep(3)">
+                    <i class="fas fa-user"></i>
+                    <div><strong>Atletik (Mezomorf)</strong><span>Kolay kaslanırım, omuzlarım geniş.</span></div>
+                </button>
+                <button class="option-btn" onclick="setData('bodyType', 'Endomorph'); nextStep(3)">
+                    <i class="fas fa-circle"></i>
+                    <div><strong>Yapılı / İri (Endomorf)</strong><span>Kolay kilo alırım, kemiklerim kalın.</span></div>
+                </button>
+            </div>
+        </div>
+
+        <div class="step" id="step3">
+            <span class="step-indicator">ADIM 3 / 7</span>
+            <h2>Günlük Aktiviten?</h2>
+            <p class="sub-text">Antrenman dışındaki hayatın nasıl geçiyor?</p>
+            
+            <div class="option-grid">
+                <button class="option-btn" onclick="setData('activity', 'Low'); nextStep(4)">
+                    <i class="fas fa-chair"></i>
+                    <div><strong>Masa Başı / Hareketsiz</strong><span>Genelde oturarak çalışıyorum.</span></div>
+                </button>
+                <button class="option-btn" onclick="setData('activity', 'Mid'); nextStep(4)">
+                    <i class="fas fa-walking"></i>
+                    <div><strong>Orta Hareketli</strong><span>Gün içinde yürüyorum / Ayaktayım.</span></div>
+                </button>
+                <button class="option-btn" onclick="setData('activity', 'High'); nextStep(4)">
+                    <i class="fas fa-running"></i>
+                    <div><strong>Çok Hareketli</strong><span>Fiziksel güç gerektiren iş / Sporcu.</span></div>
+                </button>
+            </div>
+        </div>
+
+        <div class="step" id="step4">
+            <span class="step-indicator">ADIM 4 / 7</span>
+            <h2>Beslenme Düzenin?</h2>
+            <p class="sub-text">Şu an günde kaç öğün yiyorsun?</p>
+            
+            <div class="option-grid">
+                <button class="option-btn" onclick="setData('meals', '2'); nextStep(5)">
+                    <i class="fas fa-utensils"></i> <strong>2 Öğün (Seyrek)</strong>
+                </button>
+                <button class="option-btn" onclick="setData('meals', '3'); nextStep(5)">
+                    <i class="fas fa-utensils"></i> <strong>3 Ana Öğün (Standart)</strong>
+                </button>
+                <button class="option-btn" onclick="setData('meals', '4+'); nextStep(5)">
+                    <i class="fas fa-utensils"></i> <strong>4 ve Üzeri (Sık Sık)</strong>
+                </button>
+            </div>
+        </div>
+
+        <div class="step" id="step5">
+            <span class="step-indicator">ADIM 5 / 7</span>
+            <h2>Uyku Düzenin?</h2>
+            <p class="sub-text">Gelişimin en büyük sırrı toparlanmaktır.</p>
+            
+            <div class="option-grid">
+                <button class="option-btn" onclick="setData('sleep', 'Low'); nextStep(6)">
+                    <i class="fas fa-battery-quarter"></i> <strong>Az Uyuyorum (< 6 saat)</strong>
+                </button>
+                <button class="option-btn" onclick="setData('sleep', 'Ideal'); nextStep(6)">
+                    <i class="fas fa-battery-full"></i> <strong>İdeal (7-8 saat)</strong>
+                </button>
+                <button class="option-btn" onclick="setData('sleep', 'High'); nextStep(6)">
+                    <i class="fas fa-bed"></i> <strong>Fazla Uyuyorum (> 9 saat)</strong>
+                </button>
+            </div>
+        </div>
+
+        <div class="step" id="step6">
+            <span class="step-indicator">ADIM 6 / 7</span>
+            <h2>Ana Hedefin Ne?</h2>
+            <p class="sub-text">Seni motive eden asıl amaç.</p>
+            
+            <div class="option-grid">
+                <button class="option-btn" onclick="setData('goal', 'FatLoss'); nextStep(7)">
+                    <i class="fas fa-fire"></i> <strong>Kilo Vermek & Yağ Yakmak</strong>
+                </button>
+                <button class="option-btn" onclick="setData('goal', 'Muscle'); nextStep(7)">
+                    <i class="fas fa-dumbbell"></i> <strong>Kas Kütlesi & Hacim</strong>
+                </button>
+                <button class="option-btn" onclick="setData('goal', 'Fit'); nextStep(7)">
+                    <i class="fas fa-heartbeat"></i> <strong>Sıkılaşmak & Kondisyon</strong>
+                </button>
+            </div>
+        </div>
+
+        <div class="step" id="step7">
+            <span class="step-indicator">ADIM 7 / 7</span>
+            <h2>Nerede Yaşıyorsun?</h2>
+            <p class="sub-text">Çalışma modelini belirlemek için önemli.</p>
+            
+            <div class="option-grid">
+                <button class="option-btn" onclick="setData('location', 'Gebze'); calculateAI()">
+                    <i class="fas fa-map-marker-alt"></i> <strong>Gebze / Kocaeli (Yakınım)</strong>
+                </button>
+                <button class="option-btn" onclick="setData('location', 'Remote'); calculateAI()">
+                    <i class="fas fa-globe"></i> <strong>Şehir Dışındayım / Uzaktayım</strong>
+                </button>
+            </div>
+        </div>
+
+        <div id="loading-screen">
+            <div class="loader-ring"><div></div><div></div><div></div><div></div></div>
+            <h3 style="color:#fff; font-weight:600;">Yapay Zeka Analiz Ediyor...</h3>
+            <p class="log-text" id="ai-log">Veriler işleniyor...</p>
+        </div>
+
+        <div id="result-screen">
+            <i class="fas fa-check-circle result-icon"></i>
+            <h2 style="font-size:1.8rem; margin-bottom:5px;">Raporun Hazır!</h2>
+            <p style="color:#888;">Senin için en uygun yol haritası çıkarıldı.</p>
+            
+            <div class="result-box">
+                <div class="analysis-item">
+                    <label>Vücut Kitle İndeksi (BMI):</label> 
+                    <span id="res-bmi" class="highlight">--</span> 
+                    <small id="res-bmi-comment" style="color:#888; font-size:0.8rem; margin-left:5px;">(Normal)</small>
+                </div>
+                <div class="analysis-item">
+                    <label>Tahmini Metabolizma:</label> 
+                    <span id="res-metabolism">--</span>
+                </div>
+                <div class="analysis-item">
+                    <label>Vücut Tipi Analizi:</label> 
+                    <span id="res-bodytype">--</span>
+                </div>
+
+                <div class="ai-advice" id="ai-warning-box" style="display:none;">
+                    <h4><i class="fas fa-exclamation-circle"></i> Antrenör Notu:</h4>
+                    <p id="ai-warning-text">...</p>
+                </div>
+                
+                <div style="margin-top:20px; padding-top:20px; border-top:1px dashed rgba(0,230,64,0.3);">
+                    <label style="color:var(--primary); font-size:0.85rem; font-weight:800; letter-spacing:1px; text-transform:uppercase;">SANA ÖZEL TAVSİYE:</label>
+                    <h3 id="res-pack" style="color:#fff; font-size:1.4rem; margin-top:8px; font-weight:700;">...</h3>
+                    <p id="res-desc" style="color:#ccc; font-size:0.95rem; margin-top:8px; line-height:1.5;">...</p>
+                </div>
+            </div>
+
+            <a href="programlar.html" class="btn-next">PROGRAMI İNCELE <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+
+    <script>
+        let userData = { 
+            age: 0, height: 0, weight: 0, 
+            bodyType: "", activity: "", meals: "", sleep: "", 
+            goal: "", location: "" 
+        };
+
+        function nextStep(step) {
+            // Validasyon
+            if(step === 2) {
+                const h = document.getElementById('height').value;
+                const w = document.getElementById('weight').value;
+                const a = document.getElementById('age').value;
+                if(!h || !w || !a) { 
+                    if(!h) document.getElementById('height').style.borderColor = 'red';
+                    if(!w) document.getElementById('weight').style.borderColor = 'red';
+                    if(!a) document.getElementById('age').style.borderColor = 'red';
+                    return; 
+                }
+                userData.height = parseFloat(h); 
+                userData.weight = parseFloat(w); 
+                userData.age = parseInt(a);
+            }
+
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+        }
+
+        function setData(key, val) { userData[key] = val; }
+
+        function calculateAI() {
+            document.getElementById('step7').classList.remove('active');
+            document.getElementById('loading-screen').style.display = 'block';
+
+            // Daha havalı ve uzun loglar
+            const logs = [
+                "Vücut kitle indeksi ve yağ oranı tahmin ediliyor...",
+                "Somatotip (Vücut Tipi) analizi yapılıyor...",
+                "Uyku düzeni ve toparlanma kapasitesi işleniyor...",
+                "Beslenme alışkanlıkları hedeflere göre uyarlanıyor...",
+                "Senin için en verimli antrenman modeli seçiliyor..."
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                document.getElementById('ai-log').textContent = logs[i];
+                i++;
+                if(i >= logs.length) clearInterval(interval);
+            }, 800);
+
+            setTimeout(showResult, 4200);
+        }
+
+        function showResult() {
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            // 1. BMI Hesapla ve Yorumla
+            const heightM = userData.height / 100;
+            const bmi = (userData.weight / (heightM * heightM)).toFixed(1);
+            let bmiComment = "(Normal)";
+            let bmiClass = "highlight";
+
+            if (bmi < 18.5) { bmiComment = "(Zayıf)"; bmiClass = "warning"; }
+            else if (bmi >= 25 && bmi < 30) { bmiComment = "(Fazla Kilolu)"; }
+            else if (bmi >= 30) { bmiComment = "(Obezite Sınırı)"; bmiClass = "warning"; }
+
+            document.getElementById('res-bmi').textContent = bmi;
+            document.getElementById('res-bmi').className = bmiClass;
+            document.getElementById('res-bmi-comment').textContent = bmiComment;
+
+            // 2. Metabolizma Yorumu
+            let metabolismText = "Normal";
+            if(userData.bodyType === "Ectomorph") metabolismText = "Çok Hızlı (Kilo Alımı Zor)";
+            if(userData.bodyType === "Endomorph") metabolismText = "Yavaş (Yağlanmaya Müsait)";
+            if(userData.activity === "High") metabolismText += " - Aktif";
+
+            document.getElementById('res-metabolism').textContent = metabolismText;
+            
+            // 3. Vücut Tipi Ekrana
+            let bodyTypeText = "Atletik (Mezomorf)";
+            if(userData.bodyType === "Ectomorph") bodyTypeText = "İnce Yapılı (Ektomorf)";
+            if(userData.bodyType === "Endomorph") bodyTypeText = "İri Yapılı (Endomorf)";
+            document.getElementById('res-bodytype').textContent = bodyTypeText;
+
+            // 4. AKILLI UYARI SİSTEMİ (Önemli Kısım!)
+            let adviceText = "";
+            let showAdvice = false;
+
+            // Kural 1: Zayıf ama yağ yakmak istiyor
+            if(bmi < 19 && userData.goal === "FatLoss") {
+                adviceText = "Dikkat: BMI değerin zaten düşük. Yağ yakımı yerine 'Clean Bulk' (Temiz Kilo Alma) yaparak kas kütleni artırman sağlığın ve estetik görünümün için çok daha doğru olacaktır.";
+                showAdvice = true;
+            }
+            // Kural 2: Kilolu ama sadece kas istiyor (Recomp lazım)
+            else if(bmi > 28 && userData.goal === "Muscle") {
+                adviceText = "Mevcut yağ oranın sebebiyle, direkt 'Bulk' yapmak yerine 'Recomposition' (Yağ yakarken kas yapma) sistemini uygulayarak daha fit bir görünüme ulaşmalısın.";
+                showAdvice = true;
+            }
+            // Kural 3: Uyku Analizi (AZ)
+            else if(userData.sleep === "Low") {
+                adviceText = "Gelişimin %60'ı uykuda olur. Antrenmanların verimli geçmesi için uyku süreni en az 7 saate çıkarmalısın, aksi halde toparlanma sorunu yaşayabilirsin.";
+                showAdvice = true;
+            }
+            // Kural 4: Uyku Analizi (FAZLA)
+            else if(userData.sleep === "High") {
+                adviceText = "Çok fazla uyumak da (9+ saat) gün içinde uyuşukluğa ve metabolizma yavaşlamasına sebep olabilir. Uyku düzenini 7-8 saat bandına çekerek daha enerjik olabilirsin.";
+                showAdvice = true;
+            }
+
+            if(showAdvice) {
+                document.getElementById('ai-warning-box').style.display = 'block';
+                document.getElementById('ai-warning-text').textContent = adviceText;
+            }
+
+            // 5. PAKET ÖNERİSİ ALGORİTMASI
+            let packTitle = "";
+            let packDesc = "";
+
+            if(userData.location === "Gebze") {
+                // YAKINDA
+                if(userData.bodyType === "Ectomorph" && userData.goal === "Muscle") {
+                    packTitle = "6 Aylık Gold Üyelik + Beslenme Desteği";
+                    packDesc = "Hızlı metabolizman olduğu için antrenman kadar beslenme de kritik. Salonumuzdaki profesyonel ekipmanlarla hipertrofi çalışıp, sana özel beslenme planıyla desteklemeliyiz.";
+                } 
+                else if (userData.goal === "FatLoss" || userData.goal === "Fit") {
+                    packTitle = "12 Ders Özel Antrenman (PT)";
+                    packDesc = "Yağ yakımında nabız kontrolü çok önemlidir. Birebir antrenör eşliğinde 'High Intensity' antrenmanlar yaparak en kısa sürede hedefine ulaşabilirsin.";
+                }
+                else {
+                    packTitle = "6 Aylık Gold Üyelik";
+                    packDesc = "Mevcut durumun ve hedeflerin, salonumuzun imkanlarıyla kendi programını uygulaman için çok uygun. Düzenli katılımla harika sonuçlar alacaksın.";
+                }
+            } else {
+                // UZAKTA
+                packTitle = "3 Aylık Uzaktan Eğitim (Online)";
+                packDesc = "Fiziksel olarak gelemesen de, antrenörlerimiz seni WhatsApp ve video analiz sistemiyle takip edecek. Form analizlerin haftalık olarak yapılacak.";
+            }
+
+            document.getElementById('res-pack').textContent = packTitle;
+            document.getElementById('res-desc').textContent = packDesc;
+        }
+        // --- ÜYE PROFİLİ ENTER KONTROLÜ ---
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        // Mesaj modalı mı açık yoksa Ayarlar sekmesinde miyiz?
+        const memberMsgModal = document.getElementById('memberMessageModal');
+        const settingsSection = document.getElementById('section-settings');
+
+        // Mesaj Gönderme Modalı Açıksa
+        if (memberMsgModal && memberMsgModal.style.display === 'flex') {
+            if (!e.shiftKey) {
+                e.preventDefault();
+                sendMsgToAdmin(); // Üye mesaj gönderme fonksiyonun
+            }
+        } 
+        // Ayarlar sekmesi aktifse ve bir inputa odaklanılmışsa
+        else if (settingsSection && settingsSection.classList.contains('active-section')) {
+            // Eğer odaklanılan yer bir inputsa (şifre, isim vs.)
+            if (document.activeElement.tagName === 'INPUT') {
+                e.preventDefault();
+                updateProfile(); // Profil güncelleme fonksiyonun
+            }
+        }
+    }
+});
+    </script>
+</body>
+</html>

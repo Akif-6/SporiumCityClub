@@ -1,0 +1,232 @@
+:root { 
+    --primary: #00e640;       /* Neon Yeşil */
+    --primary-dark: #00b332;  /* Koyu Yeşil (Hover için) */
+    --dark: #111; 
+    --darker: #0a0a0a; 
+    --light: #fff; 
+}
+
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background-color: var(--dark); color: var(--light); overflow-x: hidden; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+a { text-decoration: none; color: inherit; } ul { list-style: none; } img { max-width: 100%; }
+
+/* --- YAPAY ZEKA BUTONU (Yeşil Gradient) --- */
+.btn-ai {
+    background: linear-gradient(45deg, #00e640, #00992b);
+    color: #000;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 800;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(0, 230, 64, 0.4);
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid transparent;
+}
+.btn-ai:hover {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 25px rgba(0, 230, 64, 0.8);
+    transform: translateY(-3px);
+}
+.btn-ai i { font-size: 1.2rem; }
+
+/* --- NAVBAR --- */
+header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.95); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; border-bottom: 1px solid #222; }
+.logo-container img { height: 50px; width: auto; object-fit: contain; display: block; }
+
+nav ul { display: flex; gap: 30px; align-items: center; } /* Align items eklendi */
+nav ul li a { font-size: 15px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+nav ul li a:hover { color: var(--primary); text-shadow: 0 0 10px rgba(0,230,64,0.5); }
+
+.btn-join { 
+    background: linear-gradient(45deg, #00e640, #00992b); 
+    color: #000;
+    padding: 10px 25px; 
+    border-radius: 5px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    font-size: 14px; 
+    transition: all 0.3s; 
+    box-shadow: 0 0 10px rgba(0, 230, 64, 0.3);
+    cursor: pointer;
+    white-space: nowrap; /* Mobilde taşmasın */
+}
+.btn-join:hover { 
+    background-color: var(--primary-dark); 
+    box-shadow: 0 0 20px rgba(0, 230, 64, 0.6);
+    transform: translateY(-2px); 
+}
+.menu-toggle { display: none; font-size: 24px; cursor: pointer; color: var(--primary); }
+
+/* --- HERO --- */
+.hero { height: 100vh; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(17,17,17,1)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+.hero h1 { font-size: 4.5rem; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; line-height: 1.1; letter-spacing: -2px; }
+.hero h1 span { color: var(--primary); text-shadow: 0 0 20px rgba(0, 230, 64, 0.4); }
+.hero p { font-size: 1.2rem; margin-bottom: 40px; color: #ccc; max-width: 600px; }
+
+.btn-outline { border: 2px solid var(--primary); color: var(--primary); padding: 15px 40px; border-radius: 30px; font-weight: 600; text-transform: uppercase; transition: all 0.3s ease; }
+.btn-outline:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px rgba(0, 230, 64, 0.5); }
+
+/* --- SERVICES --- */
+.services { padding: 100px 5%; background-color: var(--darker); scroll-margin-top: 80px; }
+.section-title { text-align: center; margin-bottom: 60px; }
+.section-title h2 { font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; }
+.section-title span { display: block; width: 60px; height: 4px; background: var(--primary); margin: 0 auto; box-shadow: 0 0 10px var(--primary); }
+
+.cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.card { background: #1a1a1a; padding: 40px 30px; border-radius: 10px; text-align: center; transition: all 0.3s ease; border: 1px solid #333; }
+.card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0, 230, 64, 0.2); }
+.card i { font-size: 50px; color: var(--primary); margin-bottom: 25px; text-shadow: 0 0 15px rgba(0, 230, 64, 0.4); }
+.card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; }
+.card p { color: #999; font-size: 0.95rem; }
+
+/* --- FOOTER --- */
+footer { background: #050505; padding: 50px 5% 20px; border-top: 1px solid #222; margin-top: auto; }
+.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.footer-logo { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 20px; display: block; }
+.footer-logo span { color: var(--primary); }
+.socials a { display: inline-block; width: 40px; height: 40px; background: #222; color: #fff; text-align: center; line-height: 40px; border-radius: 50%; margin-right: 10px; transition: 0.3s; }
+.socials a:hover { background: var(--primary); color: #000; box-shadow: 0 0 10px var(--primary); }
+.footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #222; color: #666; font-size: 0.8rem; }
+
+/* --- ANIMASYONLAR (OBSERVER) --- */
+section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+}
+
+section.gorundu {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes perdeAcilis {
+    0% { clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); opacity: 0; transform: translateX(-20px); }
+    100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; transform: translateX(0); }
+}
+
+.about-image img, .hero-text {
+    animation: perdeAcilis 1s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+/* ============================================================
+   MOBİL UYUMLULUK (MEDIA QUERIES)
+   ============================================================ */
+@media (max-width: 992px) {
+    /* Tablet ve Mobil İçin Ortak Ayarlar */
+    .hero h1 { font-size: 3.5rem; }
+}
+
+@media (max-width: 768px) {
+    /* 1. Header & Navigasyon */
+    header {
+        padding: 15px 20px; /* Mobilde biraz daha geniş boşluk */
+    }
+
+    .menu-toggle {
+        display: block !important;
+        position: relative;
+        z-index: 2002; /* En üstte */
+    }
+
+    nav {
+        position: fixed;
+        top: 0; 
+        right: -100%; /* Başlangıçta sağda gizli */
+        width: 100%; /* Tam ekran genişliği */
+        height: 100vh;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.4s ease; /* Kayma efekti */
+        z-index: 2000;
+    }
+
+    nav.active {
+        right: 0; /* Açılınca ekrana gelir */
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    nav ul li a {
+        font-size: 1.5rem;
+        color: #fff;
+    }
+
+    /* 2. Buton Mobilde de Görünsün (Nav'ın içine taşıyacağız JS ile veya burda stil verelim) */
+    .btn-join {
+        /* Mobilde buton header'da değil, menünün içinde en altta çıksın diye display:none yapmadım.
+           Ancak header içindeki butonu gizleyip menü içine almak daha temizdir.
+           Şimdilik header'da gizleyelim, menü açılınca görünsün diyorsan JS lazım.
+           Ama en kolayı: Header'daki butonu gizle.
+        */
+        display: none; 
+    }
+    
+    /* Eğer menü açılınca butonun görünmesini istersen JS ile nav içine bir kopya buton eklenmeli */
+
+    /* 3. Hero Başlık */
+    .hero h1 { font-size: 2.5rem; }
+    .hero p { font-size: 1rem; padding: 0 10px; }
+
+    /* 4. Kartlar */
+    .cards-container { grid-template-columns: 1fr; }
+    
+    /* 5. Sidebar (Profil Sayfası için) */
+    .sidebar { 
+        display: none; /* Mobilde sidebar gizlenir, menüden erişilir */
+    }
+}
+
+/* --- PRELOADER STİLLERİ --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505; /* Kapkara arkaplan */
+            z-index: 99999; /* Her şeyin en üstünde dursun */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        
+        .loader-content {
+            text-align: center;
+            animation: nefesAl 1s infinite alternate; /* Kalp atışı efekti */
+        }
+        
+        .loader-text {
+            color: #fff;
+            font-size: 3rem; /* Dambıl gidince yazıyı büyüttük */
+            letter-spacing: 4px;
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .loader-text span {
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(0, 230, 64, 0.6);
+        }
+        
+        /* Nefes alma (Pulse) Animasyonu */
+        @keyframes nefesAl {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.05); opacity: 1; text-shadow: 0 0 30px rgba(0, 230, 64, 0.8); }
+        }
