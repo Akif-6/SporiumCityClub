@@ -1,13 +1,11 @@
 # 🏋️‍♂️ Sporium City Club | Full-Stack Gym Management System
 
-![Ana Ekran Görünümü](image_124fe4.jpg)
 
 ## 🚀 Proje Hakkında
 Sporium City Club; modern, karanlık tema (dark mode) odaklı ve yüksek performanslı bir spor salonu yönetim ve tanıtım web projesidir. Frontend tarafında herhangi bir ağır framework kullanılmadan, tamamen saf (vanilla) dillerle maksimum hız hedeflenmiş; arka planda ise güçlü ve güvenli **C# .NET 8.0 API** mimarisi ile donatılmıştır. 
 
 *"Kalabalıktan uzak, hedef odaklı spor deneyimini"* dijital dünyada en şık haliyle sunmak için tasarlandı!
 
-![Hakkımızda & Tasarım](image_465976.jpg)
 
 ## 🛠️ Kullanılan Teknolojiler (Tech Stack)
 * **Frontend (Önyüz):** HTML5, CSS3, JavaScript (Vanilla)
