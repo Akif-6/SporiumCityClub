@@ -23,6 +23,7 @@ Sporium City Club; modern, karanlık tema (dark mode) odaklı ve yüksek perform
 Üyelerin antrenman programlarını, beslenme planlarını ve kişisel gelişimlerini takip edebildiği, tamamen onlara özel hazırlanan dijital asistan (dashboard).
 
 ![Üye Paneli](https://github.com/user-attachments/assets/d03a1e24-4c4f-4fbc-8938-00b8266ed27c)
+![Üye Paneli](images/Ekran görüntüsü 2026-03-15 174914)
 
 ### 👑 Yönetim (Admin) Komuta Merkezi
 Salon yöneticisinin tüm sistemi tek bir ekrandan yönetebildiği profesyonel admin paneli. Üye takibi, finansal veriler, program atamaları ve toplu duyuru sistemi içerir.
