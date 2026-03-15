@@ -29,7 +29,7 @@ Sporium City Club; modern, karanlık tema (dark mode) odaklı ve yüksek perform
 Salon yöneticisinin tüm sistemi tek bir ekrandan yönetebildiği profesyonel admin paneli. Üye takibi, finansal veriler, program atamaları ve toplu duyuru sistemi içerir.
 
 ![Admin Ana Panel](https://github.com/user-attachments/assets/83852c82-7885-4085-b66c-405dd8058de1)
-![Sporium City Club - Admin Dashboard](images/admin-dashboard.png)
+
 
 
 
