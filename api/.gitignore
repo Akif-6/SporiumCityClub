@@ -1,0 +1,7 @@
+# Hassas Bilgiler
+appsettings.json
+appsettings.Development.json
+
+# C# Derleme Klasörleri
+bin/
+obj/
